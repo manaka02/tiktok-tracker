@@ -2,6 +2,7 @@ import { formatDateTimeFr } from '../../utils/dates'
 import ExportMenu from './ExportMenu'
 
 export default function TrackerHeader({
+  entries,
   commentsToday,
   totalComments,
   unexportedCount,
@@ -20,6 +21,7 @@ export default function TrackerHeader({
           </p>
         </div>
         <ExportMenu
+          entries={entries}
           unexportedCount={unexportedCount}
           onExportNew={onExportNew}
           onExportAll={onExportAll}

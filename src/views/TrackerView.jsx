@@ -84,6 +84,7 @@ export default function TrackerView({
   return (
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
       <TrackerHeader
+        entries={entries}
         commentsToday={commentsToday}
         totalComments={totalComments}
         unexportedCount={unexportedCount}
