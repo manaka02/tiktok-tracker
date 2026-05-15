@@ -3,7 +3,7 @@ const STORAGE_KEY = 'tiktok-tracker'
 const DEFAULT_STATE = {
   entries: [],
   lastExportDate: null,
-  lastMode: 'video',
+  lastMode: 'comment',
 }
 
 export function loadState() {

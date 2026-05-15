@@ -105,7 +105,7 @@ export function useEntries() {
     persist({
       entries: [],
       lastExportDate: null,
-      lastMode: 'video',
+      lastMode: 'comment',
     })
   }, [persist])
 
