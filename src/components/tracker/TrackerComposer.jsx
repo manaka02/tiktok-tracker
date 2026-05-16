@@ -1,3 +1,4 @@
+import { IconClipboardPaste } from '../icons/Icons'
 import ModeToggle from '../ModeToggle'
 
 const COMPOSER_HEIGHT = 'h-12'
@@ -8,6 +9,7 @@ export default function TrackerComposer({
   mode,
   onToggleMode,
   onSubmit,
+  onPasteFromClipboard,
   inputRef,
 }) {
   const isVideo = mode === 'video'
@@ -39,6 +41,14 @@ export default function TrackerComposer({
             placeholder="Colle un ou plusieurs liens (espace ou retour à la ligne)"
             className={`h-full min-h-[48px] max-h-32 min-w-0 flex-1 resize-none rounded-lg border-2 bg-input px-4 py-3 text-base text-text outline-none placeholder:text-muted focus:ring-2 focus:ring-offset-2 focus:ring-offset-surface ${borderColor} ${isVideo ? 'focus:ring-video' : 'focus:ring-comment'}`}
           />
+          <button
+            type="button"
+            onClick={() => void onPasteFromClipboard()}
+            className={`flex ${COMPOSER_HEIGHT} min-w-[48px] shrink-0 items-center justify-center rounded-lg border-2 bg-input text-muted transition-colors hover:bg-surface ${isVideo ? 'hover:text-video' : 'hover:text-comment'} ${borderColor}`}
+            aria-label="Coller depuis le presse-papiers"
+          >
+            <IconClipboardPaste size={22} />
+          </button>
         </div>
         <button
           type="submit"

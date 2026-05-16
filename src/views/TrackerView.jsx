@@ -41,19 +41,41 @@ export default function TrackerView({
     return { commentsToday: today, totalComments: total }
   }, [entries])
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    const urls = parseTikTokUrls(url)
+  const submitText = (text) => {
+    const urls = parseTikTokUrls(text)
 
     if (urls.length === 0) {
       onToast({ message: '❌ Lien TikTok invalide', variant: 'error' })
-    } else {
-      const counts = addEntries(urls, mode)
-      onToast(formatBatchToast(counts))
+      return
     }
-
+    const counts = addEntries(urls, mode)
+    onToast(formatBatchToast(counts))
     setUrl('')
     inputRef.current?.focus()
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    submitText(url)
+  }
+
+  const handlePasteFromClipboard = async () => {
+    try {
+      const text = await navigator.clipboard.readText()
+      const t = text.trimEnd()
+      if (!t) return
+      setUrl((prev) => {
+        const p = prev.trimEnd()
+        return p ? `${p}\n${t}` : t
+      })
+      inputRef.current?.focus()
+    } catch {
+      onToast({
+        message: '❌ Accès au presse-papiers refusé',
+        variant: 'error',
+      })
+      inputRef.current?.focus()
+    }
   }
 
   const handleExport = () => {
@@ -102,6 +124,7 @@ export default function TrackerView({
         mode={mode}
         onToggleMode={() => setMode(mode === 'video' ? 'comment' : 'video')}
         onSubmit={handleSubmit}
+        onPasteFromClipboard={handlePasteFromClipboard}
         inputRef={inputRef}
       />
     </div>
